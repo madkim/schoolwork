@@ -13,7 +13,7 @@
                   String name = in.readLine();
                   if (name == null) break;
                   System.out.println("Hello, " + name + ".");
-}
+              }
               in.close();
           }
 }
