@@ -8,11 +8,12 @@
       class greetings {
           public static void main( String[] args ) throws IOException {
               BufferedReader in = new BufferedReader(
-                  new FileReader("people.txt"));
+                  new FileReader("directory.txt"));
               while(true) {
                   String name = in.readLine();
                   if (name == null) break;
-                  System.out.println("Hello, " + name + ".");
+                  String[] matches = name.split(",");
+                  System.out.println("Hello, " + matches[0] + ".");
               }
               in.close();
           }
