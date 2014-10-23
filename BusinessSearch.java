@@ -40,6 +40,10 @@ class BusinessSearch{
 
       list.parse();
 
+      System.out.println();
+
+      String input = sc.nextLine();
+      //if(input == null)
     }
 
   	}catch(Exception e){
@@ -126,12 +130,15 @@ class BusinessSort{
       System.out.println(name[0]);
     } 
     System.out.println();
-    
+
     for(int k=0; k<bElems; k++){
       String[] phone = businesses[k].split(",");
       System.out.println(phone[1]);
     }
   }
+  //----------------------------------------------------------- 
+
+  
 
 }
 
