@@ -17,26 +17,26 @@ class BusinessSearch{
   public static void main( String[] args) throws IOException{
     
     Scanner sc = new Scanner(System.in);
-    int count=0;	//keep track of array length
+    int count;	//keep track of array length
   
   	try{
   	if(args.length == 1){
 
-  		BufferedReader in = new BufferedReader(new FileReader("favorites.txt"));
-    	while(true){
-      	String name = in.readLine();
-      	if (name == null) break;  
-      	count++; 
-    	}
+  		BufferedReader in = new BufferedReader(new FileReader(args[0]));
+        count = Integer.parseInt(in.readLine()); 
 
       BusinessSort list;
       list = new BusinessSort(count);
       
-      list.display(count);
+      for(int i=0; i<count; i++){
+      list.insert(in.readLine());
+      }
 
-      list.mergeSort(count);
+      list.display();
 
-      list.display(count);
+      list.mergeSort();
+
+      list.display();
     }
 
   	}catch(Exception e){
@@ -48,32 +48,34 @@ class BusinessSearch{
   		System.exit(1);
   	}
 
-
-
   }
 }
 
 class BusinessSort{
   private String[] businesses;
+  private int bElems=0;
 
-  public BusinessSort(int businessSize) throws IOException{
+  public BusinessSort(int businessSize){
     businesses = new String[businessSize];
-    BufferedReader insert = new BufferedReader(new FileReader("favorites.txt"));
-    for(int i=0; i<businessSize; i++){
-      businesses[i] = insert.readLine();
-    }
   }
 
   //----------------------------------------------------------- 
-  public void display(int arrLength){      
-    for(int j=0; j<arrLength; j++) 
+  public void insert(String name){
+    businesses[bElems] = name;
+    bElems++;
+  }
+  
+  //----------------------------------------------------------- 
+  public void display(){      
+    for(int j=0; j<bElems; j++) 
       System.out.println(businesses[j] + " "); 
+    System.out.println();
     }
 
   //----------------------------------------------------------- 
-  public void mergeSort(int size){    
-    String[] workSpace = new String[size]; 
-    recMergeSort(workSpace, 0, size-1);
+  public void mergeSort(){            //meregeSort from book
+    String[] workSpace = new String[bElems]; 
+    recMergeSort(workSpace, 0, bElems-1);
     }
 
   //----------------------------------------------------------- 
