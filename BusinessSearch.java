@@ -37,6 +37,9 @@ class BusinessSearch{
       list.mergeSort();
 
       list.display();
+
+      list.parse();
+
     }
 
   	}catch(Exception e){
@@ -115,8 +118,24 @@ class BusinessSort{
     for(j=0; j<n; j++)
       businesses[lowerBound+j] = workSpace[j];
     } 
+  
+  //----------------------------------------------------------- 
+  public void parse(){
+    for(int j=0; j<bElems; j++){
+      String[] name = businesses[j].split(",");
+      System.out.println(name[0]);
+    } 
+    System.out.println();
+    
+    for(int k=0; k<bElems; k++){
+      String[] phone = businesses[k].split(",");
+      System.out.println(phone[1]);
+    }
+  }
 
 }
+
+
 
 
 
