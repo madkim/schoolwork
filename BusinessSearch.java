@@ -15,35 +15,53 @@ import java.util.Scanner;
 class BusinessSearch{
 
   public static void main( String[] args) throws IOException{
-    
-    Scanner sc = new Scanner(System.in);
-    int count;	//keep track of array length
-  
+
   	try{
   	if(args.length == 1){
 
   		BufferedReader in = new BufferedReader(new FileReader(args[0]));
-        count = Integer.parseInt(in.readLine()); 
-
-      BusinessSort list;
-      list = new BusinessSort(count);
+      String numbers = in.readLine();
+      int count = Integer.parseInt(numbers); 
+      businessSort list;
+      list = new businessSort(count);
       
       for(int i=0; i<count; i++){
-      list.insert(in.readLine());
+        list.insert(in.readLine());
       }
 
-      list.display();
+      //list.display();
 
       list.mergeSort();
 
-      list.display();
+      //list.display();
 
-      list.parse();
+      Scanner sc = new Scanner(System.in);
+      String input = null;
+      int found = 0;
+      int notFound = 0;
 
-      System.out.println();
+      while(true)
+      {
+      input = sc.nextLine();
+      switch(input)
+      {
+        case"":
+          System.out.print(found+" total queries, "+notFound+" not found");
+          System.out.println();
+          return;
+        default:
 
-      String input = sc.nextLine();
-      //if(input == null)
+      if(list.find(input) != count){
+        System.out.println();
+        found++;
+      }
+      else{
+        System.out.println("NOT FOUND");  
+        notFound++;
+      }
+      break;
+      }    
+      }
     }
 
   	}catch(Exception e){
@@ -58,11 +76,12 @@ class BusinessSearch{
   }
 }
 
-class BusinessSort{
+class businessSort{
   private String[] businesses;
   private int bElems=0;
+  String[] name;
 
-  public BusinessSort(int businessSize){
+  public businessSort(int businessSize){
     businesses = new String[businessSize];
   }
 
@@ -124,22 +143,39 @@ class BusinessSort{
     } 
   
   //----------------------------------------------------------- 
-  public void parse(){
-    for(int j=0; j<bElems; j++){
-      String[] name = businesses[j].split(",");
-      System.out.println(name[0]);
-    } 
-    System.out.println();
+  public int find(String searchKey){          //Binary Search example from book  
+      return recFind(searchKey, 0, bElems-1);
+      }
+   
+   //-----------------------------------------------------------
+   private int recFind(String searchKey, int lowerBound, int upperBound){ 
+     
+      String[] name = new String[bElems];
+      String[] phone = new String[bElems];
 
-    for(int k=0; k<bElems; k++){
-      String[] phone = businesses[k].split(",");
-      System.out.println(phone[1]);
-    }
-  }
-  //----------------------------------------------------------- 
+      for(int j=0; j<bElems; j++){
+        String[] split = businesses[j].split(",");
+        name[j] = split[0];
+        phone[j] = split[1];
+      }
+      
+      int curIn;
+      curIn = (lowerBound + upperBound ) / 2;
 
-  
-
+      if(searchKey.equals(name[curIn])){
+         System.out.println(phone[curIn]);
+         return curIn;  
+      }              
+      else if(lowerBound > upperBound)
+         return bElems;             
+      else                         
+         {
+         if(name[curIn].compareToIgnoreCase(searchKey)<0)  
+            return recFind(searchKey, curIn+1, upperBound);
+         else                       
+            return recFind(searchKey, lowerBound, curIn-1);
+         }  
+     }    
 }
 
 
