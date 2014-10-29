@@ -28,9 +28,14 @@ public class Calc
     
     public double pop() 
         {
+        if( top == -1) {
+            throw new RuntimeException ("stack is empty"); 
+        }
+        else{
         count--;
         return calcArray[top--];
         }
+    }
     
     public double peek() 
         {
@@ -65,8 +70,13 @@ public class Calc
     public void multiply() 
         {
         double val2 = pop();
+        if( top == -1) {
+            throw new RuntimeException ("can't multiply without two numbers"); 
+        }
+        else{
         double val1 = pop();
         push(val1*val2);
+        }
     }
 
     public void divide() 
@@ -74,6 +84,9 @@ public class Calc
         double val2 = pop();
         if (val2 == 0){
             throw new RuntimeException ("can't divide by zero");
+        }
+          if( top == -1) {
+            throw new RuntimeException ("can't divide without two numbers"); 
         }
         else{
         double val1 = pop();
