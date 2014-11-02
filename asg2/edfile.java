@@ -9,6 +9,7 @@ class edfile{
    public static void main (String[] args) {
       boolean want_echo = true;
       dllist lines = new dllist ();
+      System.out.println("Welcome!");      //ToBeTakenOut
       auxlib.STUB ("Check for -e option");
       auxlib.STUB ("Load file from args filename, if any.");
       Scanner stdin = new Scanner (in);
