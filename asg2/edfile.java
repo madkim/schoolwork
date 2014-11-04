@@ -34,7 +34,9 @@ class edfile{
          while(sentence != null){
             lines.insert(sentence, dllist.position.LAST);
             sentence = in.readLine();
+            counter++;
          } 
+      System.out.println(counter);
       }
 
       for (;;) {
