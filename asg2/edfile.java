@@ -8,6 +8,7 @@ import java.io.*;
 class edfile{
 
    public static void main (String[] args) throws IOException{
+      int counter = 0;
       boolean want_echo = false;
       dllist lines = new dllist ();
       System.out.println("Welcome!");      
@@ -17,11 +18,23 @@ class edfile{
       if(args.length == 1){
          BufferedReader in = new BufferedReader(new FileReader(args[0]));  
          System.out.println("filename: "+args[0]); //delete
+         String sentence = in.readLine();
+         while(sentence != null){
+            lines.insert(sentence, dllist.position.LAST);
+            sentence = in.readLine();
+            counter++;
+         }
+      System.out.println(counter);
       }
       else if(args.length == 2){
          want_echo = true;
          BufferedReader in = new BufferedReader(new FileReader(args[1]));
          System.out.println("option: "+args[0]+"\nfilename: "+args[1]); //delete
+         String sentence = in.readLine();
+         while(sentence != null){
+            lines.insert(sentence, dllist.position.LAST);
+            sentence = in.readLine();
+         } 
       }
 
       for (;;) {
