@@ -77,8 +77,39 @@ class edfile{
                lines.setPosition(dllist.position.PREVIOUS);
                lines.getItem();
                break;
-            case 'r': auxlib.STUB ("Call r command function."); break;
-            case 'w': auxlib.STUB ("Call w command function."); break;
+            case 'r': 
+               int countRead = 0;
+               String[] read = inputline.split(" ", 2);
+               try{
+                  BufferedReader readIn = new BufferedReader(new FileReader(read[1]));
+                  String line = readIn.readLine();
+                  while(line != null){
+                     lines.insert(line, dllist.position.FOLLOWING);
+                     countRead++;
+                  }  
+                  lines.setPosition(dllist.position.LAST); 
+                  System.out.println("Number of lines inserted: "+countRead);
+
+               }catch(FileNotFoundException e){
+                  System.out.println("Error: File Cannot Be Read");
+               }
+               break;
+            case 'w': 
+               int countWrite = 0;
+               String[] write = inputline.split(" ", 2);
+               try{
+               PrintWriter writeIn = new PrintWriter(write[1]);
+               lines.setPosition(dllist.position.FIRST);
+               while(lines.getItem() != null){
+                  writeIn.print(lines.getItem());
+                  countWrite++;
+                  }
+                  System.out.println("Number of lines written: "+countWrite);
+
+               }catch(Exception e){
+                  System.out.println("Error: Cannot Be Written");
+               }
+               break;
             default : auxlib.STUB ("Print invalid command."); break;
          }
       }
