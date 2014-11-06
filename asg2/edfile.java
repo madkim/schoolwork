@@ -1,19 +1,21 @@
+// Matthew Kim
+// madkim
+// cmps12b
+// 11/5/14
 // edfile.java
-// Template for a line-oriented text editor inspired by ed.
+// creates a basic text editor using a doubly linked list
 
 import java.util.Scanner;
 import static java.lang.System.*;
 import java.io.*;
+import java.util.*;
 
 class edfile{
 
    public static void main (String[] args) throws IOException{
-      int counter = 0;
       boolean want_echo = false;
       dllist lines = new dllist ();
       System.out.println("Welcome!");      
-      auxlib.STUB ("Check for -e option");
-      auxlib.STUB ("Load file from args filename, if any.");
       Scanner stdin = new Scanner (in);
       if(args.length == 1){
          BufferedReader in = new BufferedReader(new FileReader(args[0]));  
@@ -22,9 +24,7 @@ class edfile{
          while(sentence != null){
             lines.insert(sentence, dllist.position.LAST);
             sentence = in.readLine();
-            counter++;
          }
-      System.out.println(counter);
       }
       else if(args.length == 2){
          want_echo = true;
@@ -34,11 +34,8 @@ class edfile{
          while(sentence != null){
             lines.insert(sentence, dllist.position.LAST);
             sentence = in.readLine();
-            counter++;
          } 
-      System.out.println(counter);
       }
-
       for (;;) {
          if (! stdin.hasNextLine()) break;
          String inputline = stdin.nextLine();
@@ -48,53 +45,112 @@ class edfile{
          switch (command) {
             case '#': 
                break;
+            
             case '$': 
-               lines.setPosition(dllist.position.LAST); 
-               lines.getItem(); 
+               try{
+                  lines.setPosition(dllist.position.LAST); 
+                  lines.getItem(); 
+               }catch(Exception e){
+                  System.out.println("list is empty.");
+               }
                break;
+            
             case '*':   
                lines.setPosition(dllist.position.FIRST);
-               while(lines.getItem() != null){
-                  System.out.println(lines.getItem());
+               if( lines.isEmpty() ){
+                  System.out.println("list is empty, no lines to display.");
+               }
+               else{
+               try{
+                  while(lines.getItem() != null ){
                   lines.setPosition(dllist.position.FOLLOWING);
+                  }
+               }catch(Exception e){
                } 
                lines.setPosition(dllist.position.LAST); 
+               } 
                break;
+            
             case '.': 
-               lines.getItem(); 
+               try{
+                  lines.getItem(); 
+               }catch(Exception e){
+                  System.out.println("list is empty.");
+               }
                break;
+            
             case '0': 
-               lines.setPosition(dllist.position.FIRST); 
-               lines.getItem(); 
+               try{
+                  lines.setPosition(dllist.position.FIRST); 
+                  lines.getItem(); 
+               }catch (Exception e) {
+                  System.out.println("list is empty.");                  
+               }
                break;
+            
             case '<': 
+               try{
                lines.setPosition(dllist.position.PREVIOUS); 
                lines.getItem(); 
+               }catch(Exception e){
+                  System.out.println("first line in list.");
+               }
                break;
+
             case '>': 
-               lines.setPosition(dllist.position.FOLLOWING); 
-               lines.getItem(); 
+               try{
+                  lines.setPosition(dllist.position.FOLLOWING); 
+                  lines.getItem(); 
+               }catch(Exception e){
+                  System.out.println("last line in list.");
+               }
                break;
+
             case 'a': 
-               String[] splitNext = inputline.split(" ", 2);
-               System.out.println(splitNext[1]); //delete
-               lines.insert(splitNext[1], dllist.position.FOLLOWING);
-               lines.setPosition(dllist.position.FOLLOWING);
-               lines.getItem();
+               String[] splitNext = inputline.split("a", 2);
+               if( lines.isEmpty() ){
+                  lines.insert(splitNext[1], dllist.position.FIRST);
+                  lines.getItem();
+                  lines.setPosition(dllist.position.LAST);
+               }
+               else if(lines.getPosition() != lines.getNumItems()-1){
+                  lines.insert(splitNext[1], dllist.position.FOLLOWING);
+                  lines.getItem();
+               }
+               else{
+                  lines.insert(splitNext[1], dllist.position.LAST);
+                  lines.getItem();
+               }
                break;
+            
             case 'd': 
-               lines.delete(); 
+               try{
+                  lines.delete();
+               }catch(Exception e){
+                  System.out.println("can't delete, list empty.");
+               } 
                break;
+            
             case 'i': 
-               String[] splitPre = inputline.split(" ", 2);
-               System.out.println(splitPre[1]); //delete
-               lines.insert(splitPre[1], dllist.position.PREVIOUS);
-               lines.setPosition(dllist.position.PREVIOUS);
-               lines.getItem();
+               String[] splitPre = inputline.split("i", 2);
+               if( lines.isEmpty() ){
+                  lines.insert(splitPre[1], dllist.position.FIRST);
+                  lines.setPosition(dllist.position.FIRST);
+                  lines.getItem();
+               }
+               else if(lines.getPosition() != 0 ){
+                  lines.insert(splitPre[1], dllist.position.PREVIOUS);
+                  lines.getItem();
+               }
+               else{
+                  lines.insert(splitPre[1], dllist.position.FIRST);
+                  lines.getItem();
+               }
                break;
+            
             case 'r': 
                int countRead = 0;
-               String[] read = inputline.split(" ", 2);
+               String[] read = inputline.split("r", 2);
                try{
                   BufferedReader readIn = new BufferedReader(new FileReader(read[1]));
                   String line = readIn.readLine();
@@ -109,9 +165,10 @@ class edfile{
                   System.out.println("Error: File Cannot Be Read");
                }
                break;
+            
             case 'w': 
                int countWrite = 0;
-               String[] write = inputline.split(" ", 2);
+               String[] write = inputline.split("w", 2);
                try{
                PrintWriter writeIn = new PrintWriter(write[1]);
                lines.setPosition(dllist.position.FIRST);
@@ -125,10 +182,12 @@ class edfile{
                   System.out.println("Error: Cannot Be Written");
                }
                break;
-            default : auxlib.STUB ("Print invalid command."); break;
+            default : 
+               System.out.println("invalid command"); 
+               break;
          }
       }
-      auxlib.STUB ("(eof)");
+      auxlib.die();
    }
 
 }

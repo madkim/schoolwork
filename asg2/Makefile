@@ -1,3 +1,8 @@
+# Matthew Kim
+# madkim
+# cmps12b
+# 11/5/14
+# Makefile 
 # Makefile for Programming Assignment 2
 
 JAVASRC    = edfile.java dllist.java auxlib.java dllistTest.java

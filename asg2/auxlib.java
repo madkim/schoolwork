@@ -1,5 +1,9 @@
-// auxlib.java
-// Wesley Mackey template code
+// Matthew Kim
+// madkim
+// cmps12b
+// 11/5/14
+// auxlib.java 
+// auxlib template
 
 import static java.lang.System.*;
 

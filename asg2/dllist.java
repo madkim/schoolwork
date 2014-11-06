@@ -1,5 +1,11 @@
-// dllist.java
-// Template code for doubly-linked list of strings.
+// Matthew Kim
+// madkim
+// cmps12b
+// 11/5/14
+// dllist.java 
+// creates a doubly linked list for edfile.java
+
+import java.util.*;
 
 public class dllist {
 
@@ -15,38 +21,89 @@ public class dllist {
    private node current = null;
    private node last = null;
    private int currentPosition = 0;
+   private int numItems = 0;
 
    public void setPosition (position pos) {
-    /*  switch(pos) {
+      switch(pos) {
          case FIRST:
-
+            current = first;
+            currentPosition = 0;
             break;
+
          case LAST:
-
+            current = last;
+            currentPosition = --numItems;
             break;
+
          case PREVIOUS:
-
+            if(current != first){
+               current = current.prev;
+               currentPosition--;
+            }else{
+               throw new NoSuchElementException("can't set position previous to first.");
+            }
             break;
-         case: FOLLOWING:
 
+         case FOLLOWING:
+            if(current != last){
+               current = current.next;
+               currentPosition++;
+            }else{
+               throw new NoSuchElementException("can't set position following last.");
+            }
             break;
       }
-*/
-      throw new UnsupportedOperationException();
    }
 
    public boolean isEmpty () 
    { return first==null; }
 
-   public String getItem () 
-   { return current.item; }
+   public String getItem () {
+      if( !isEmpty() ){
+      System.out.println(current.item);
+      System.out.println(currentPosition); //delete
+      System.out.println(numItems); //delete
+      return current.item; 
+      }
+      else{
+         throw new NoSuchElementException("can't get item in empty list.");
+      }
+
+   }
 
    public int getPosition () {
-      throw new UnsupportedOperationException();
+      if ( !isEmpty() ){
+         return currentPosition;
+      }else{
+         throw new NoSuchElementException("List is empty, no element position to return");
+      }
    }
 
    public void delete () {
-      throw new UnsupportedOperationException();
+      if((current != first) && (current != last) && (!isEmpty())){
+         current.prev.next = current.next;
+         current.next.prev = current.prev;
+         current = current.next;
+         numItems--;
+      }else if((current != null) && (current == first) && (first == last)){
+         current = first = last = null;
+         numItems--;
+         currentPosition--;
+      }else if((current != null) && (current == first) && (first != last)){
+         first = current.next;
+         current.next.prev = first;
+         current = current.next; 
+         numItems--;
+         currentPosition = 0;
+      }else if((current != null) && (current == last) && (first != last)){
+         last = current.prev;
+         current.prev.next = null;
+         current = current.prev;
+         numItems--;
+         currentPosition = numItems;
+      }else if( isEmpty() ){
+         throw new NoSuchElementException("can't delete from empty list.");
+      }
    }
 
    public void insert (String item, position pos) {
@@ -62,7 +119,10 @@ public class dllist {
             }
             first = nFirst;   
             current = nFirst;
+            numItems++;
+            currentPosition = 0;
             break;
+         
          case LAST:
             node nLast = new node();
             nLast.item = item;  
@@ -73,26 +133,51 @@ public class dllist {
                nLast.prev = last;    
             }
             last = nLast; 
-            current = nLast;   
+            current = nLast;  
+            numItems++;
+            currentPosition = (numItems - 1); 
             break;
+         
          case PREVIOUS:
          node nPre = new node();
             nPre.item = item;  
-            if( current != first ){
+            if( isEmpty() ){
+               throw new IllegalArgumentException("list is empty!");
+            }
+            else{
                current.prev.next = nPre;
                nPre.prev = current.prev;
                nPre.next = current;
                current.prev = nPre;
-            }else{
-               throw new IllegalArgumentException("can't insert before first!");
             }
-            current = nPre;    
+            current = nPre;
+            numItems++;
+            currentPosition--;    
             break;
-     /*    case: FOLLOWING:
-
+         
+         case FOLLOWING:
+         node nFollow = new node();
+            nFollow.item = item;
+            if( isEmpty() ){
+               throw new IllegalArgumentException("list is empty!");
+            }
+            else{
+               current.next.prev = nFollow;
+               nFollow.next = current.next;
+               nFollow.prev = current;
+               current.next = nFollow;
+   
+            }
+            current = nFollow;
+            numItems++;
+            currentPosition++;
             break;
-     */
+     
       }
+   }
+
+   public int getNumItems () {
+      return numItems;
    }
 
 }
