@@ -143,9 +143,6 @@ public class dllistTest {
         lst.insert(e, dllist.position.FOLLOWING);
         lst.setPosition(dllist.position.FIRST);
         lst.getPosition();
-        assertEquals(0, lst.getPosition());
-        lst.setPosition(dllist.position.FOLLOWING);
-        lst.getPosition();
         assertEquals(1, lst.getPosition());
         lst.setPosition(dllist.position.FOLLOWING);
         lst.getPosition();
@@ -155,58 +152,65 @@ public class dllistTest {
         assertEquals(3, lst.getPosition());
         lst.setPosition(dllist.position.FOLLOWING);
         lst.getPosition();
-        assertEquals(4, lst.getPosition()); 
-    }
-
-    
-
-  /*  @Test
-    public void insertLastTest() {
-    	dllist lst = new dllist();
-    	String word = "hello";
-    	lst.insert(word, dllist.position.LAST);
-    	assertEquals(false, lst.isEmpty());
+        assertEquals(4, lst.getPosition());
+        lst.setPosition(dllist.position.FOLLOWING);
+        lst.getPosition();
+        assertEquals(5, lst.getPosition()); 
     }
     @Test
-    public void insertFirstTest() {
-    	dllist lst = new dllist();
-    	String word = "hello";
-    	lst.insert(word, dllist.position.FIRST);
-    	assertEquals(false, lst.isEmpty());
-    }   
-    @Test(expected=Exception.class)
-    public void insertPrevExcepTest() {
-    	dllist lst = new dllist();
-    	//String word1 = "hello";
-    	//lst.insert(word1, dllist.position.FIRST);
-    	String word3 = "world";
-    	lst.insert(word3, dllist.position.PREVIOUS);
-    }
-    @Test(expected=Exception.class)
-    public void insertFollowTest() {
+    public void deleteTest () {
         dllist lst = new dllist();
-       // String word = "hello";
-        //lst.insert(word, dllist.position.LAST);
-       //String word2 = "world";
-       //lst.insert(word2, dllist.position.FIRST);
-        String word3 = "kind";
-        lst.insert(word3, dllist.position.FOLLOWING);
-        assertEquals(true, lst.getItem() == word3);
+        String a = "A";
+        lst.insert(a, dllist.position.FIRST);
+        String b = "B";
+        lst.insert(b, dllist.position.FIRST);
+        String c = "C";
+        lst.insert(c, dllist.position.FIRST);
+        lst.setPosition(dllist.position.FIRST);
+        lst.delete();
+        assertEquals("B", lst.getItem());
+        lst.delete();
+        assertEquals("A", lst.getItem());
     }
-   
-
-
-    /*@Test
-    public void insertPrevTest() {
-    	dllist lst = new dllist();
-    	String word1 = "hello";
-    	lst.insert(word1, dllist.position.FIRST);
-    	String word2 = "kind";
-    	lst.insert(word2, dllist.position.LAST);
-    	String word3 = "world";
-    	lst.insert(word3, dllist.position.PREVIOUS);
-    	assertEquals( true, lst.getItem() == word3);
-    } // checks position once setPosition is created*/
+    @Test(expected=Exception.class)
+    public void setPosistionPrevExeptionTest () {
+        dllist lst = new dllist();
+        String a = "A";
+        lst.insert(a, dllist.position.FIRST);
+        lst.setPosition(dllist.position.PREVIOUS);
+    }    
+    @Test(expected=Exception.class)
+    public void setPosistionFollowingExeptionTest () {
+        dllist lst = new dllist();
+        String b = "B";
+        lst.insert(b, dllist.position.LAST);
+        lst.setPosition(dllist.position.FOLLOWING);
+    }
+    @Test(expected=Exception.class)
+    public void getItemExceptionTest () {
+        dllist lst = new dllist();
+        lst.getItem();
+    }
+    @Test(expected=Exception.class)
+    public void getPositionExceptionTest () {
+        dllist lst = new dllist();
+        lst.getPosition();
+    }
+    @Test(expected=Exception.class)
+    public void deleteExceptionTest () {
+        dllist lst = new dllist();
+        lst.delete();
+    }
+    @Test(expected=Exception.class)
+    public void insertPrevExeptionTest () {
+        dllist lst = new dllist();
+        String a = "A";
+        lst.insert(a, dllist.position.PREVIOUS);
+    }
+    @Test(expected=Exception.class)
+    public void insertFollowExeptionTest () {
+        dllist lst = new dllist();
+        String a = "A";
+        lst.insert(a, dllist.position.FOLLOWING);
+    }
 }
-
-

@@ -13,29 +13,33 @@ import java.util.*;
 class edfile{
 
    public static void main (String[] args) throws IOException{
-      boolean want_echo = false;
+      boolean want_echo = check(args);
       dllist lines = new dllist ();
       System.out.println("Welcome!");      
       Scanner stdin = new Scanner (in);
-      if(args.length == 1){
-         BufferedReader in = new BufferedReader(new FileReader(args[0]));  
-         System.out.println("filename: "+args[0]); //delete
-         String sentence = in.readLine();
-         while(sentence != null){
-            lines.insert(sentence, dllist.position.LAST);
-            sentence = in.readLine();
+      try{
+         if(args.length == 1 && !check(args)){
+            BufferedReader in = new BufferedReader(new FileReader(args[0]));  
+            String sentence = in.readLine();
+            while(sentence != null){
+               lines.insert(sentence, dllist.position.LAST);
+               sentence = in.readLine();
+            }
          }
+         else if(args.length == 1 && check(args)){
+         }
+         else if(args.length == 2 && check(args)){
+            BufferedReader in = new BufferedReader(new FileReader(args[1]));
+            String sentence = in.readLine();
+            while(sentence != null){
+               lines.insert(sentence, dllist.position.LAST);
+               sentence = in.readLine();
+            } 
+         }
+      }catch(Exception e){
+         System.out.println("Error: File Not Found");
       }
-      else if(args.length == 2){
-         want_echo = true;
-         BufferedReader in = new BufferedReader(new FileReader(args[1]));
-         System.out.println("option: "+args[0]+"\nfilename: "+args[1]); //delete
-         String sentence = in.readLine();
-         while(sentence != null){
-            lines.insert(sentence, dllist.position.LAST);
-            sentence = in.readLine();
-         } 
-      }
+
       for (;;) {
          if (! stdin.hasNextLine()) break;
          String inputline = stdin.nextLine();
@@ -113,7 +117,7 @@ class edfile{
                   lines.getItem();
                   lines.setPosition(dllist.position.LAST);
                }
-               else if(lines.getPosition() != lines.getNumItems()-1){
+               else if(lines.getPosition() != lines.getNumItems()){
                   lines.insert(splitNext[1], dllist.position.FOLLOWING);
                   lines.getItem();
                }
@@ -138,7 +142,7 @@ class edfile{
                   lines.setPosition(dllist.position.FIRST);
                   lines.getItem();
                }
-               else if(lines.getPosition() != 0 ){
+               else if(lines.getPosition() != 1 ){
                   lines.insert(splitPre[1], dllist.position.PREVIOUS);
                   lines.getItem();
                }
@@ -152,12 +156,33 @@ class edfile{
                int countRead = 0;
                String[] read = inputline.split("r", 2);
                try{
-                  BufferedReader readIn = new BufferedReader(new FileReader(read[1]));
-                  String line = readIn.readLine();
-                  while(line != null){
-                     lines.insert(line, dllist.position.FOLLOWING);
-                     countRead++;
-                  }  
+                  if( lines.isEmpty() ){
+                     BufferedReader readIn = new BufferedReader(new FileReader(read[1]));  
+                     String line = readIn.readLine();
+                     while(line != null){
+                        lines.insert(line, dllist.position.LAST);
+                        line = readIn.readLine();
+                        countRead++;
+                     }
+                  }
+                  else if(lines.getPosition() != lines.getNumItems()){
+                     BufferedReader readIn = new BufferedReader(new FileReader(read[1]));
+                     String line = readIn.readLine();
+                     while(line != null){
+                        lines.insert(line, dllist.position.FOLLOWING);
+                        line = readIn.readLine();
+                        countRead++;
+                     }  
+                  }
+                  else{
+                     BufferedReader readIn = new BufferedReader(new FileReader(read[1]));
+                     String line = readIn.readLine();
+                     while(line != null){
+                        lines.insert(line, dllist.position.LAST);
+                        line = readIn.readLine();
+                        countRead++;
+                     }
+                  }
                   lines.setPosition(dllist.position.LAST); 
                   System.out.println("Number of lines inserted: "+countRead);
 
@@ -170,18 +195,23 @@ class edfile{
                int countWrite = 0;
                String[] write = inputline.split("w", 2);
                try{
-               PrintWriter writeIn = new PrintWriter(write[1]);
-               lines.setPosition(dllist.position.FIRST);
-               while(lines.getItem() != null){
-                  writeIn.print(lines.getItem());
+                  PrintWriter writeIn = new PrintWriter(write[1]);
+                  lines.setPosition(dllist.position.FIRST);
+                  while(lines.getPosition() != lines.getNumItems()){
+                     writeIn.println(lines.getItem());
+                     lines.setPosition(dllist.position.FOLLOWING);
+                     countWrite++;
+                     }
+                  writeIn.println(lines.getItem());
                   countWrite++;
-                  }
+                  writeIn.close();
                   System.out.println("Number of lines written: "+countWrite);
 
                }catch(Exception e){
                   System.out.println("Error: Cannot Be Written");
                }
                break;
+
             default : 
                System.out.println("invalid command"); 
                break;
@@ -190,5 +220,17 @@ class edfile{
       auxlib.die();
    }
 
+   public static boolean check (String[] args){ 
+      if(args.length > 0){
+         String check = "-e";
+         return args[0].equals(check); 
+      }
+      else{
+         return false;
+      }
+   }
+
 }
+
+
 
