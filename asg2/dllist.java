@@ -27,12 +27,12 @@ public class dllist {
       switch(pos) {
          case FIRST:
             current = first;
-            currentPosition = 0;
+            currentPosition = 1;
             break;
 
          case LAST:
             current = last;
-            currentPosition = --numItems;
+            currentPosition = numItems;
             break;
 
          case PREVIOUS:
@@ -61,8 +61,6 @@ public class dllist {
    public String getItem () {
       if( !isEmpty() ){
       System.out.println(current.item);
-      System.out.println(currentPosition); //delete
-      System.out.println(numItems); //delete
       return current.item; 
       }
       else{
@@ -94,7 +92,7 @@ public class dllist {
          current.next.prev = first;
          current = current.next; 
          numItems--;
-         currentPosition = 0;
+         currentPosition = 1;
       }else if((current != null) && (current == last) && (first != last)){
          last = current.prev;
          current.prev.next = null;
@@ -120,7 +118,7 @@ public class dllist {
             first = nFirst;   
             current = nFirst;
             numItems++;
-            currentPosition = 0;
+            currentPosition = 1;
             break;
          
          case LAST:
@@ -135,7 +133,7 @@ public class dllist {
             last = nLast; 
             current = nLast;  
             numItems++;
-            currentPosition = (numItems - 1); 
+            currentPosition = numItems; 
             break;
          
          case PREVIOUS:
