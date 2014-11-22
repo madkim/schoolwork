@@ -1,3 +1,9 @@
+// Matthew Kim & Susan Kim
+// madkim
+// cmps12b
+// 11/21/14
+// Queue.java 
+// creates a queue of list lines 
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -11,12 +17,18 @@ class Queue <Item> implements Iterable <Item> {
    private Node head = null;
    private Node tail = null;
 
-   public boolean isempty() {
-      throw new RuntimeException("Replace this with working code");
+   public boolean isEmpty() { 
+      return head==null; 
    }
 
    public void insert(Item newitem) {
-      throw new RuntimeException("Replace this with working code");
+      Node queueItem = new Node();
+      queueItem.item = newitem;  
+      if( isEmpty() )                
+         head = queueItem;            
+      else
+         tail.next = queueItem;       
+         tail = queueItem;           
    }
 
    public Iterator <Item> iterator() {

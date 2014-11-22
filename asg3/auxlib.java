@@ -1,3 +1,10 @@
+// Matthew Kim & Susan Kim
+// madkim
+// cmps12b
+// 11/21/14
+// auxlib.java  
+// read DESCRIPTION
+
 // $Id: auxlib.java,v 1.2 2014-02-07 17:06:33-08 - - $
 //
 // NAME

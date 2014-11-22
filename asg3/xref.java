@@ -1,3 +1,10 @@
+// Matthew Kim & Susan Kim
+// madkim
+// cmps12b
+// 11/21/14
+// xref.java 
+// reads in a file with a list of words 
+
 import java.io.*;
 import java.util.Scanner;
 import static java.lang.System.*;
@@ -9,7 +16,6 @@ class xref {
         Tree tree = new Tree();
         for (int linenr = 1; scan.hasNextLine (); ++linenr) {
             for (String word: scan.nextLine().split ("\\W+")) {
-                out.printf ("%s: %d: %s%n", filename, linenr, word);
                 tree.insert(word, linenr);
             }
         }
@@ -22,15 +28,31 @@ class xref {
     }
 
     public static void main(String[] args) {
-        // This code does not handle -d option
-        String filename = args[0];
+        boolean want_debug = check(args);
         try {
-            processFile(filename, false);
+            if(want_debug == true){
+                String filename = args[1];
+                processFile(filename, want_debug);
+            }
+            else if(want_debug == false){
+                String filename = args[0];
+                processFile(filename, want_debug);
+            }
         }catch (IOException error) {
             auxlib.warn (error.getMessage());
         }
         auxlib.exit();
     }
 
+    public static boolean check (String[] args){ 
+      if(args.length > 0){
+         String check = "-d";
+         return args[0].equals(check); 
+      }
+      else{
+         return false;
+      }
+
+    }
 }
 
