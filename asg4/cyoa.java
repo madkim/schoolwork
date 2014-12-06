@@ -16,14 +16,17 @@ class cyoa{
 		int rCount = 0;
 		int oCount = 0;
 		int dCount = 0;
-
+		
+		Scanner stdin = new Scanner(in);
 		try{
 			if(args.length == 1){
 				BufferedReader in = new BufferedReader(new FileReader(args[0]));
 				String read1 = in.readLine();
 				while(read1 != null){
+					
 					String[] text = read1.split(" ", 2);
 					String command = text[0];
+					
 					if( command.equals("r") ){
 						rCount++;
 						read1 = in.readLine();
@@ -41,8 +44,7 @@ class cyoa{
 					}
 
 				}
-				System.out.println("r count: "+rCount+"\no count: "+oCount+
-					"\nd count: "+dCount); //delete
+				System.out.println("r count: "+rCount+"\no count: "+oCount+"\nd count: "+dCount); //delete
 
 				doubleArray game = new doubleArray(rCount, oCount, dCount);
 				rCount = -1;
@@ -85,13 +87,62 @@ class cyoa{
 					"\nd count: "+dCount); //delete
 
 				game.display();
-				//game.display(rCount, temp);
-				//game.insert(rCount, oCount);
-
 			}
 		}
 		catch(Exception e){
 			System.out.println("SYNOPSIS: cyoa adventurefile");
+		}
+
+		while(true) {
+			if (! stdin.hasNextLine()) break;	//code from edfile.java
+			String input = stdin.nextLine();
+			if (input.matches ("^\\s*$")) continue;
+			char option = input.charAt(0);
+			switch (option){
+				case '#':
+					break;
+
+				case 'a':
+					game.printDetail();
+					break;
+
+				case 'b':
+					break;
+
+				case 'c':
+					break;
+
+				case 'd':
+					break;
+
+				case 'e':
+					break;
+
+				case 'f':
+					break;
+
+				case 'g':
+					break;
+
+				case 'h':
+					break;
+
+				case 'i':
+					break;
+
+				case 'j':
+					break;
+
+				case 'k':
+					break;
+
+				case 'l':
+					break;
+
+				default:
+					System.out.println("invalid command");
+					break;
+			}
 		}
 	}
 }
