@@ -23,17 +23,42 @@ class doubleArray
 		name[r] = text;
 	}
 
-	public void printDetail(){
+	public void printDetail(int r){
+		System.out.println();
 		for(int i = 0; i < description.length; i++)
 		{
-			for(int j = 0; j < description[i].length; j++)
+			for(int j = 0; j < description[r].length; j++)
 			{
-				System.out.print(description[i][j]);
-				if(j < description[i].length -1) System.out.print(" ");
+				if(description[r][j] == null){
+					break;
+				}
+				else{
+					System.out.println(description[r][j]+"\n");
+				}
+				//if(j < description[r].length -1) System.out.print(" "); //delete?
 			}
-			System.out.println();
+			break;
+		}
+	}
+
+	public void printOption(int o){
+		System.out.println();
+		for(int i = 0; i < adventure.length; i++)
+		{
+			for(int j = 0; j < adventure[o].length; j++)
+			{
+				if(adventure[o][j] == null){
+					break;
+				}
+				else{
+					System.out.println(adventure[o][j]);
+				}
+				//if(j < description[r].length -1) System.out.print(" "); //delete?
+			}
+			break;
 		}
 		System.out.println();
+
 	}
 
 	public void display(){

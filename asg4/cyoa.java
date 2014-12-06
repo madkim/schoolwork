@@ -44,7 +44,7 @@ class cyoa{
 					}
 
 				}
-				System.out.println("r count: "+rCount+"\no count: "+oCount+"\nd count: "+dCount); //delete
+				//System.out.println("r count: "+rCount+"\no count: "+oCount+"\nd count: "+dCount); //delete
 
 				doubleArray game = new doubleArray(rCount, oCount, dCount);
 				rCount = -1;
@@ -60,7 +60,7 @@ class cyoa{
 						String[] text = read2.split(" ", 2);
 						String command = text[0];
 						String commandInfo = text[1];
-						System.out.println(commandInfo); //delete
+						//System.out.println(commandInfo); //delete
 						if( command.equals("r") ){
 							oCount = 0;
 							dCount = 0;
@@ -83,66 +83,73 @@ class cyoa{
 						}
 					}
 				}
-				System.out.println("r count: "+rCount+"\no count: "+oCount+
-					"\nd count: "+dCount); //delete
+				//System.out.println("r count: "+rCount+"\no count: "+oCount+"\nd count: "+dCount); //delete
 
-				game.display();
+				//game.display(); //delete
+				game.printDetail(0);
+				game.printOption(0);
+
+				while(true) {
+					if (! stdin.hasNextLine()) break;	//code from edfile.java
+					String input = stdin.nextLine();
+					if (input.matches ("^\\s*$")) continue;
+					char option = input.charAt(0);
+					switch (option){
+						case '#':
+							break;
+
+						case 'a':
+							game.printDetail(1);
+							game.printOption(1);
+							break;
+
+						case 'b':
+							game.printDetail(0);
+							game.printOption(0);
+							break;
+
+						case 'c':
+							game.printDetail(3);
+							game.printOption(3);
+							break;
+
+						case 'd':
+							break;
+
+						case 'e':
+							break;
+
+						case 'f':
+							break;
+
+						case 'g':
+							break;
+
+						case 'h':
+							break;
+
+						case 'i':
+							break;
+
+						case 'j':
+							break;
+
+						case 'k':
+							break;
+
+						case 'l':
+							break;
+
+						default:
+							System.out.println("invalid command");
+							break;
+					}
+				}
+
 			}
 		}
 		catch(Exception e){
 			System.out.println("SYNOPSIS: cyoa adventurefile");
-		}
-
-		while(true) {
-			if (! stdin.hasNextLine()) break;	//code from edfile.java
-			String input = stdin.nextLine();
-			if (input.matches ("^\\s*$")) continue;
-			char option = input.charAt(0);
-			switch (option){
-				case '#':
-					break;
-
-				case 'a':
-					game.printDetail();
-					break;
-
-				case 'b':
-					break;
-
-				case 'c':
-					break;
-
-				case 'd':
-					break;
-
-				case 'e':
-					break;
-
-				case 'f':
-					break;
-
-				case 'g':
-					break;
-
-				case 'h':
-					break;
-
-				case 'i':
-					break;
-
-				case 'j':
-					break;
-
-				case 'k':
-					break;
-
-				case 'l':
-					break;
-
-				default:
-					System.out.println("invalid command");
-					break;
-			}
 		}
 	}
 }
