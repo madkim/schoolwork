@@ -1,8 +1,8 @@
 class doubleArray
 	{
-	public String[][] adventure;
-	public String[][] description;
-	public String[] name;
+	public String[][] adventure; 	//options
+	public String[][] description; 	//details
+	public String[] name; 			//room name
 	
 
 	public doubleArray(int rooms, int options, int info){
@@ -23,6 +23,18 @@ class doubleArray
 		name[r] = text;
 	}
 
+	public void printDetail(){
+		for(int i = 0; i < description.length; i++)
+		{
+			for(int j = 0; j < description[i].length; j++)
+			{
+				System.out.print(description[i][j]);
+				if(j < description[i].length -1) System.out.print(" ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
 
 	public void display(){
 		for(int i = 0; i < adventure.length; i++)
