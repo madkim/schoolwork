@@ -10,7 +10,7 @@ import static java.lang.System.*;
 import java.io.*;
 import java.util.*;
 
-class cyoa{
+class cyoafix{
 
 	public static void main(String[] args) throws IOException{
 		Scanner stdin = new Scanner(in);
@@ -47,6 +47,27 @@ class cyoa{
 			String text;
 			line = null;
 			r = -1;
+
+
+		/*	rooms[0] = new Room("room1");					//debug output used to check if 
+			System.out.println(rooms[0].name);				//values are being inputted correctly
+			rooms[0].roomDescription = "Looks Dark";
+			System.out.println(rooms[0].roomDescription);
+			rooms[0].choice[0] = new Option("Open Door 1?");
+			System.out.println(rooms[0].choice[0].optionDescription);
+			rooms[0].choice[1] = new Option("Open Door 2?");
+			System.out.println(rooms[0].choice[1].optionDescription);
+
+
+
+			rooms[1] = new Room("room2");
+			System.out.println(rooms[1].name);
+			rooms[1].roomDescription = "It's brighter here!";
+			System.out.println(rooms[1].roomDescription);
+			rooms[1].choice[0] = new Option("Go back?");
+			System.out.println(rooms[1].choice[0].optionDescription);
+		*/
+
 
 			BufferedReader next = new BufferedReader(new FileReader(args[0]));
 			line = next.readLine();
@@ -92,6 +113,16 @@ class cyoa{
 				
 				}
 			}
+			/*for( int i = 0; i < rooms.length; i++){			//debug output that checks
+				System.out.println(rooms[i].name);				//rooms and their options
+				System.out.println(rooms[i].roomDescription);
+				for( int j = 0; j < 12; j++){
+					if(rooms[i].choice[j] != null)
+						System.out.println(rooms[i].choice[j].optionDescription);
+				}
+				System.out.println();
+
+			}*/
 			
 			for( int i = 0; i < rooms.length; i++ ){
 
@@ -107,13 +138,15 @@ class cyoa{
 							rooms[i].choice[j].tag = rooms[h];
 							break;
 						}
-						else if( !rooms[i].choice[j].tag.name.equals(rooms[h].name) && h == rooms.length - 1 ){
-							System.out.println("\nno match found for " + rooms[i].choice[j].tag.name + "\n");
-							System.exit(1);
-						}
 					}
 				}
 			}
+
+		/*	System.out.println(rooms[0].choice[0].tag.roomDescription);		//debug out that checks the
+			System.out.println(rooms[0].choice[1].tag.roomDescription);		//tags for each room object
+			System.out.println(rooms[1].choice[0].tag.roomDescription);
+			System.out.println(rooms[1].choice[1].tag.roomDescription);
+		*/
 
 			Room current = rooms[0];
 			DoublyLinkedToThePast undo = new DoublyLinkedToThePast();

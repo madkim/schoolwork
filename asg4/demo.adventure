@@ -1,0 +1,136 @@
+x Matthew D. Kim & Susan Inha Kim
+x madkim
+x cmps12b
+x 12/8/14
+x demo.adventure
+x creates a text based game
+x                          
+r room1
+d This is room one.
+d You are awake.
+o Go to sleep.
+t Dream
+o Stay awake.
+t room1
+
+r Dream
+d You are falling asleep.
+d Everything fades to black. 
+d You see a green circle. 
+o Walk towards it.
+t Field
+o Take your chances in the dark and walk away.
+t Lost
+
+r Field
+d Suddenly the ground is coming up at you. 
+d You land with a thud. 
+d Before you can react, you hear a low rumbling. 
+d You see what seems to be ambiguous shapes growing in the distance.
+d You shriek out in terror, but you realize you have no mouth.
+d The ambiguous shapes rapidly get bigger.
+o Run away.
+t Stuck
+o Dig.
+t Nowhere
+o Stand your ground.
+t Seemingly Brave
+
+r Lost
+d It seems very dark here.
+d Actually, it seems very dark everywhere.
+d There doesn't seem to be any sense of direction.
+o Go to sleep.
+t Dream
+o Head back towards the green circle.
+t Field
+
+r Stuck
+d You've decided that you don't want to stick around.
+d You attempt to get up, but try as you might, it seems that the harder you try, the slower you move.
+d Running doesn't seem like an option.
+o Dig
+t Nowhere
+o Stand your ground.
+t Seemingly Brave
+
+r Nowhere
+d You can't honestly be serious...
+o Stand your ground.
+t Seemingly Brave
+
+r Seemingly Brave
+d Looks like you have no other choice than to be brave.
+d As the rumbling intensifies, you can make out the shapes.
+d They turn out to be...
+d 
+d MASSIVE TROUTS!
+d My god! They must be searching for water!
+d You suddenly have an insatiable appetite.
+d You gracefully take a leap and mount the tuna before sinking your teeth in.
+d Woah there! 
+d After you tame the wild beast, you maneuver yourself to the front of the pack.
+d Unfortunately, you've drawn too much attention to yourself.
+d Pirate vultures from all sides!
+o Try to outrun them!
+t High Speed Chase
+o Surrender yourself along with all of your belongings.
+t Robbed
+
+r High Speed Chase
+d With odds outnumbering you a hundred to one, you can't help but flash a saucy grin.
+d Sorry boys, but it's a trout time I be leaving. YEEEEEEEHAAAAAAH!
+d Unfortunately, you forgot to fill up, and you're running on empty.
+o Continue on foot.
+t Tree
+o Ride it out.
+t Robbed
+
+r Robbed
+d Unfortunately you weren't quick enough. 
+d The vultures take everything you have, including your beloved trout.
+d "Curses!" you exclaim.
+d You cross your arms and sit on the ground with a "hmph". 
+o Pout
+t Pout
+
+r Tree
+d After walking several miles through a bleak and barren landscape, you come upon a tree.
+d It is surrounded in a sea of green, luscious landscape.
+d Your eyes water at the sheer sight of it.
+d Also, there's a lot of dust.
+d Upon gazing up at the tree, you notice that there is a hand woven ladder.
+o Climb up the ladder
+t House
+o Don't climb up the ladder
+t Dream
+
+r Pout
+d "HMMMPH!"
+o Pout more.
+t Pout
+o Continue on foot.
+t Tree
+
+r House
+d As you climb the ladder, you notice that its attached to some sort of structure.
+d To get a better look, you used the skill taught to you by the ancient natives of The White Kiki Tribe.
+d As you swing from vine to vine, you can't help but appreciate about being raised by a pack of mongeese.
+d With a final swoop, you heave yourself up and barely catch the side of what seems to be an old hut.
+d You open the creaky door and waddle inside. 
+d You notice that for some reason, there's a large hole in the ground.
+o Step over it.
+t Win
+o Take a nap.
+t Dream
+o Get a closer look.
+t Field
+
+r Win
+d Congrats YOU WIN!
+d This is room one.
+d You are awake.
+o Go to sleep.
+t Dream
+o Stay awake.
+t room1

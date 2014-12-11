@@ -1,0 +1,14 @@
+// Matthew D. Kim & Susan Inha Kim
+// madkim
+// cmps12b
+// 12/8/14
+// design.txt
+// commentary on designing the choose your own adventure project
+
+Our project for Programming Assignment 4 we decided on using an array of Room and Option objects for our data structure. These Room objects consisted of the room name, description as well as an array of Option objects. We also included a doubly Linked list in order to implement the z command (undo command).
+
+The program is organized into many different parts. We started with reading in the file in order to count the number of rooms which we then used to build our array. A second read of the file allowed us to store our data in our newly built array. With each part being read, we filled in our array with new Room objects. The options of each Room object are linked to a tag which links to a Room object within the Room array. This allowed us to move between rooms using our options kind of like a binary tree. Finally we took in user input and matched the first character to whichever option was associated with the same letter. 
+
+We thought an array of Room and Option objects would be the easiest after thinking about how to represent rooms and the corresponding options since java is an object oriented language. 
+
+Throughout the assignment we struggled to decide on what kind of data structure to use, but luckily with some trial and error, we were finally able to get it right.
